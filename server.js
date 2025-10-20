@@ -19,6 +19,7 @@ import express from "express";
 import pkg from "pg";
 const { Pool } = pkg;
 import cors from "cors";
+import jobsRoutes from "./routes/jobsRoutes.js";
 
 const app = express();
 
@@ -28,15 +29,7 @@ const pool = new Pool({
 });
 app.use(cors({ origin: "*" }));
 app.use(express.static("public"));
-app.get("/api/jobs", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
-  }
-});
+app.use("/api", jobsRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
