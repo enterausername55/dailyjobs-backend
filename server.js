@@ -26,7 +26,7 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 app.use(express.static("public"));
-app.get("/", async (req, res) => {
+app.get("/api/jobs", async (req, res) => {
   const result = await pool.query("SELECT NOW()");
   res.send(result.rows);
 });
