@@ -25,10 +25,16 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
+app.use(cors({ origin: "*" }));
 app.use(express.static("public"));
 app.get("/api/jobs", async (req, res) => {
-  const result = await pool.query("SELECT NOW()");
-  res.send(result.rows);
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 const PORT = process.env.PORT || 8000;
