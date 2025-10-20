@@ -25,7 +25,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
-
+app.use(express.static("public"));
 app.get("/", async (req, res) => {
   const result = await pool.query("SELECT NOW()");
   res.send(result.rows);
