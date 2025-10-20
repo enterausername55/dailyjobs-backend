@@ -4,16 +4,12 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Pool létrehozása a DB kapcsolathoz
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 });
 
-// Egyszerű helper, ha a pool query-t akarjuk használni
+// Helper függvény a query-khez
 const query = (text, params) => pool.query(text, params);
 
 export { pool, query };
