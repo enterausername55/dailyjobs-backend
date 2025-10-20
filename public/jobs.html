@@ -176,7 +176,7 @@
             letter: activeLetter,
             junior: juniorFilter.value,
           });
-          //const res = await fetch(`http://localhost:8000/api/jobs?${params}`);
+          //const res = await fetch(`/api/jobs?${params}`);
           const res = await fetch(`/api/jobs?${params}`);
           if (!res.ok) throw new Error("Hálózati hiba");
           const data = await res.json();
