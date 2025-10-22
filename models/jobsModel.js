@@ -10,30 +10,35 @@ export const getJobs = async ({ filter, letter, junior }) => {
   const params = [];
 
   // dátum szűrés
-  if (filter) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    let fromDate;
-    switch (filter) {
-      case "today":
-        fromDate = today;
-        break;
-      case "yesterday":
-        fromDate = new Date(today);
-        fromDate.setDate(today.getDate() - 1);
-        break;
-      case "last7":
-        fromDate = new Date(today);
-        fromDate.setDate(today.getDate() - 6);
-        break;
-      case "last30":
-        fromDate = new Date(today);
-        fromDate.setDate(today.getDate() - 29);
-        break;
-    }
+  switch (filter) {
+    case "today":
+      fromDate = today;
+      toDate = new Date(today);
+      break;
+    case "yesterday":
+      fromDate = new Date(today);
+      fromDate.setDate(today.getDate() - 1);
+      toDate = new Date(today);
+      break;
+    case "last7":
+      fromDate = new Date(today);
+      fromDate.setDate(today.getDate() - 6);
+      break;
+    case "last30":
+      fromDate = new Date(today);
+      fromDate.setDate(today.getDate() - 29);
+      break;
+  }
 
-    const fromDateStr = fromDate.toISOString().split("T")[0];
+  const fromDateStr = fromDate.toISOString().split("T")[0];
 
+  if (filter === "yesterday") {
+    const toDateStr = toDate.toISOString().split("T")[0];
+    params.push(fromDateStr, toDateStr);
+    sql += ` AND j.start_date >= $${params.length - 1} AND j.start_date < $${
+      params.length
+    }`;
+  } else {
     params.push(fromDateStr);
     sql += ` AND j.start_date >= $${params.length}`;
   }
