@@ -31,7 +31,10 @@ export const getJobs = async ({ filter, letter, junior }) => {
         fromDate.setDate(today.getDate() - 29);
         break;
     }
-    params.push(fromDate);
+
+    const fromDateStr = fromDate.toISOString().split("T")[0];
+
+    params.push(fromDateStr);
     sql += ` AND j.start_date >= $${params.length}`;
   }
 
