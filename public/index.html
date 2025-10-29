@@ -3,24 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Állások</title>
+    <title>Daily Jobs</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <select id="filter">
-      <option value="today">Mai állások</option>
-      <option value="yesterday">Tegnap</option>
-      <option value="last7">Utolsó 7 nap</option>
-      <option value="last30">Utolsó 30 nap</option>
-    </select>
+    <div class="wrapper">
+      <header class="header">
+        <div class="logo">🧭 Daily Jobs</div>
+        <nav class="nav">
+          <a href="#">Állások</a>
+          <a href="#">Cégek</a>
+          <a href="#">Új cég kérése</a>
+          <a href="#">Oldalhiba jelentése</a>
+          <a href="#">VEGYÉL FEL!</a>
+        </nav>
+      </header>
 
-    <select id="junior-filter">
-      <option value="all">Összes</option>
-      <option value="junior">Junior</option>
-    </select>
+      <main class="main">
+        <h1 class="page-title">Mai álláshirdetések</h1>
 
-    <div id="letter-filter"></div>
-    <div id="jobs-container">Betöltés...</div>
+        <div class="filters">
+          <select id="filter">
+            <option value="today">Mai állások</option>
+            <option value="yesterday">Tegnap</option>
+            <option value="last7">Utolsó 7 nap</option>
+            <option value="last30">Utolsó 30 nap</option>
+          </select>
+
+          <select id="junior-filter">
+            <option value="all">Összes</option>
+            <option value="junior">Junior</option>
+          </select>
+        </div>
+
+        <div id="letter-filter"></div>
+        <div id="jobs-container">Betöltés...</div>
+      </main>
+
+      <footer class="footer">
+        <p>© 2025 Daily Jobs — Minden jog fenntartva.</p>
+        <div class="footer-links">
+          <a href="#">Adatvédelem</a>
+          <a href="#">Felhasználási feltételek</a>
+          <a href="#">Kapcsolat</a>
+        </div>
+      </footer>
+    </div>
 
     <script type="module" src="script.js"></script>
   </body>
