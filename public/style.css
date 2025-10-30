@@ -161,9 +161,12 @@ select:focus {
   border-color: #0f766e;
   box-shadow: 0 4px 12px rgba(13, 94, 90, 0.25);
   background: #0f766e;
+  color: #fff;
 }
 
-.card:hover a {
+.card:hover .job-title,
+.card:hover .dates,
+.card:hover .dates div {
   color: #fff;
 }
 
