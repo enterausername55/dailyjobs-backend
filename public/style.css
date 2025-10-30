@@ -138,13 +138,16 @@ select:focus {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  border-left: 2px solid #0f766e;
+  margin: 0 12px 0 5px;
+  padding-left: 5px;
 }
 
 .card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
+  background: #edf2f1;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 10px 16px;
@@ -157,7 +160,11 @@ select:focus {
   transform: translateY(-3px);
   border-color: #0f766e;
   box-shadow: 0 4px 12px rgba(13, 94, 90, 0.25);
-  background: linear-gradient(to right, #f8fafc, #ecfeff);
+  background: #0f766e;
+}
+
+.card:hover a {
+  color: #fff;
 }
 
 .job-title {
