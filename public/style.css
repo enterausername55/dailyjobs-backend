@@ -102,6 +102,31 @@ body {
   color: var(--color-primary);
 }
 
+.nav button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav button:hover {
+  color: var(--color-primary);
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav button {
+  font-size: 1rem;
+}
+
 /* MAIN */
 .main {
   flex: 1;
@@ -258,4 +283,61 @@ select:focus {
 
 .footer-links a:hover {
   text-decoration: underline;
+}
+
+/* === Céges lista nézet === */
+.company-section {
+  flex: 1 1 calc(33.333% - 5rem);
+  margin-bottom: 5rem;
+  min-height: 50px;
+}
+
+/* A betű cím (pl. "A", "B", "C") ugyanaz, mint az állásoknál */
+.company-section .company-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 0.25rem;
+  color: var(--color-primary);
+}
+
+/* A fő wrapper flexre vált, hogy egymás mellett legyenek a betűszekciók */
+.companies-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+/* Cégek felsorolása simán, nem kártyás */
+.company-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Cégnevek – sima linkek */
+.company-list a {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.company-list a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Reszponzív: tableten 2 oszlop, mobilon 1 */
+@media (max-width: 900px) {
+  .company-section {
+    flex: 1 1 calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .company-section {
+    flex: 1 1 100%;
+  }
 }
