@@ -1,3 +1,17 @@
+// Hamburger menü logika
+const menuToggle = document.getElementById("menu-toggle");
+const nav = document.querySelector(".nav");
+
+menuToggle.addEventListener("click", () => {
+  nav.classList.toggle("open");
+});
+
+document.addEventListener("click", (e) => {
+  if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+    nav.classList.remove("open");
+  }
+});
+
 const container = document.getElementById("jobs-container");
 const filterSelect = document.getElementById("filter");
 const juniorFilter = document.getElementById("junior-filter");
