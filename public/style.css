@@ -20,23 +20,28 @@
 }
 */
 :root {
-  --color-bg-main: #f8fafc;
-  --color-bg-mid: #f1f5f9;
-  --color-bg-bottom: #e2e8f0;
+  /* Háttér */
+  --color-bg-main: #f9fafb; /* világos háttér */
+  --color-bg-mid: #f3f4f6;
+  --color-bg-bottom: #e5e7eb;
 
-  --color-primary: #2563eb;
-  --color-primary-light: #3b82f6;
-  --color-primary-hover: #1e40af;
-  --color-primary-bg: #eff6ff;
+  /* Fő téma (kékes-türkiz) */
+  --color-primary: #0e7490; /* fő kékeszöld (kb. teal-600) */
+  --color-primary-light: #06b6d4; /* világosabb (cyan-500) */
+  --color-primary-hover: #147287ff; /* sötétebb teal */
+  --color-primary-bg: #ecfeff; /* halvány kékes háttér (hover highlight) */
 
-  --color-text: #1e293b;
-  --color-text-muted: #475569;
-  --color-text-dark: #0f172a;
+  /* Szöveg */
+  --color-text: #1f2937; /* általános szürke */
+  --color-text-muted: #4b5563; /* halványabb szöveg */
+  --color-text-dark: #0f172a; /* címek, erősebb szöveg */
 
-  --color-border: #cbd5e1;
-  --color-border-light: #e2e8f0;
-  --color-shadow: rgba(37, 99, 235, 0.25);
+  /* Elválasztó / árnyék */
+  --color-border: #d1d5db;
+  --color-border-light: #e5e7eb;
+  --color-shadow: rgba(13, 94, 90, 0.25);
 
+  /* Fehér */
   --color-white: #ffffff;
 }
 
