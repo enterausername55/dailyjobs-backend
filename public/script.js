@@ -106,17 +106,27 @@ function renderJobsFromArray(jobs) {
       .forEach((job) => {
         const card = document.createElement("a");
         card.className = "card";
-        card.href = job.href;
-        card.target = "_blank";
+        card.addEventListener("click", async (e) => {
+          e.preventDefault();
+          try {
+            await fetch("/api/track/click", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ href: job.href }),
+            });
+          } catch (err) {
+            console.error("Click tracking failed:", err);
+          } finally {
+            window.open(job.href, "_blank");
+          }
+        });
         card.innerHTML = `
           <div class="job-title">${job.title.replace(/"/g, "")}</div>
           <div class="dates">
             <div>
-              Posted: ${
-                job.start_date
-                  ? job.start_date.split("T")[0].replace(/"/g, "")
-                  : ""
-              }
+              ${job.click_count || ""} Megjelent: ${
+          job.start_date ? job.start_date.split("T")[0].replace(/"/g, "") : ""
+        }
             </div>
           </div>
         `;
@@ -235,3 +245,8 @@ juniorFilter.addEventListener("change", renderJobsWrapper);
 
 // Inicializálás
 renderJobsWrapper();
+
+// === Pageview tracking ===
+fetch("/api/track/pageview", { method: "POST" })
+  .then(() => console.log("Pageview logged"))
+  .catch((err) => console.error("Pageview log error:", err));

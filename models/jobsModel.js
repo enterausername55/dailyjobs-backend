@@ -2,11 +2,18 @@ import { query } from "../config/db.js";
 
 export const getJobs = async ({ filter, letter, junior }) => {
   let sql = `
-    SELECT j.id, j.title, j.href, j.start_date, j.end_date, c.company_name AS site
-    FROM jobs j
-    JOIN companies c ON j.company_id = c.id
-    WHERE j.end_date IS NULL
-  `;
+  SELECT 
+    j.id, 
+    j.title, 
+    j.href, 
+    j.start_date, 
+    j.end_date, 
+    j.click_count,
+    c.company_name AS site
+  FROM jobs j
+  JOIN companies c ON j.company_id = c.id
+  WHERE j.end_date IS NULL
+`;
   const params = [];
   if (filter) {
     const today = new Date();
