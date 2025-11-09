@@ -5,7 +5,7 @@ export async function getAllRequestedCompanies() {
     SELECT * 
     FROM requested_companies 
     ORDER BY created_at DESC`;
-  const result = await query(sql, params);
+  const result = await query(sql);
   return result.rows;
 }
 
