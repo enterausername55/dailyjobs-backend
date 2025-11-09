@@ -3,6 +3,7 @@ import cors from "cors";
 import jobsRoutes from "./routes/jobsRoutes.js";
 import companiesRoutes from "./routes/companiesRoutes.js";
 import trackRoutes from "./routes/trackRoutes.js";
+import requestedCompaniesRoutes from "./routes/requestedCompaniesRoutes.js";
 import { pool } from "./config/db.js";
 
 const app = express();
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use("/api", jobsRoutes);
 app.use("/api", companiesRoutes);
 app.use("/api", trackRoutes);
+app.use("/api", requestedCompaniesRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
