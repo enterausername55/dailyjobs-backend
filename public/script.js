@@ -194,6 +194,106 @@ async function renderCompanies() {
   container.appendChild(outer);
 }
 
+// === Új cég kérése ===
+async function fetchRequestedCompanies() {
+  try {
+    const res = await fetch("/api/requested-companies");
+    if (!res.ok) throw new Error("Hálózati hiba");
+    return await res.json();
+  } catch (err) {
+    console.error("Hiba a requested companies API lekéréskor:", err);
+    return [];
+  }
+}
+
+async function renderRequestedCompanies() {
+  container.innerHTML = "Betöltés...";
+
+  const data = await fetchRequestedCompanies();
+  container.innerHTML = "";
+
+  const section = document.createElement("section");
+  section.className = "requested-card-container";
+
+  if (!data.length) {
+    section.innerHTML =
+      "<p style='text-align:center'>Még nincs beküldött kérés.</p>";
+  } else {
+    data.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "requested-card";
+      const statusClass =
+        item.status === "approved"
+          ? "status-approved"
+          : item.status === "rejected"
+          ? "status-rejected"
+          : "status-pending";
+
+      card.innerHTML = `
+        <a href="${item.url}" target="_blank" class="company-name">${
+        item.name
+      }</a>
+        <div class="company-url">${item.url}</div>
+        <span class="status-badge ${statusClass}">${item.status}</span>
+        <div class="comment">${item.comment || ""}</div>
+      `;
+      section.appendChild(card);
+    });
+  }
+
+  // === Form rész ===
+  const form = document.createElement("form");
+  form.className = "request-form";
+  form.innerHTML = `
+    <h2>Új cég beküldése</h2>
+    <label for="companyName">Cégnév</label>
+    <input type="text" id="companyName" required />
+    <label for="companyUrl">Cég weboldal (URL)</label>
+    <input type="url" id="companyUrl" required />
+    <button type="submit">Beküldés</button>
+    <div class="message" id="request-message"></div>
+  `;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("companyName").value.trim();
+    const url = document.getElementById("companyUrl").value.trim();
+    const msg = document.getElementById("request-message");
+    msg.textContent = "";
+
+    if (!name || !url) {
+      msg.textContent = "Tölts ki minden mezőt!";
+      msg.className = "message error";
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/requested-companies", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, url }),
+      });
+
+      if (res.ok) {
+        msg.textContent = "✅ Kérés beküldve!";
+        msg.className = "message success";
+        form.reset();
+        renderRequestedCompanies();
+      } else {
+        msg.textContent = "❌ Hiba történt a beküldéskor.";
+        msg.className = "message error";
+      }
+    } catch (err) {
+      console.error("Form beküldés hiba:", err);
+      msg.textContent = "❌ Hálózati hiba.";
+      msg.className = "message error";
+    }
+  });
+
+  container.appendChild(section);
+  container.appendChild(form);
+}
+
 function renderSoon() {
   container.innerHTML = "<p style='text-align:center'>Very soon.</p>";
 }
@@ -218,11 +318,11 @@ companiesMenu.addEventListener("click", async () => {
   await renderCompanies();
 });
 
-requestCompanyMenu.addEventListener("click", () => {
-  document.querySelector(".page-title").textContent = "SoonTM";
+requestCompanyMenu.addEventListener("click", async () => {
+  document.querySelector(".page-title").textContent = "Új cég kérése";
   document.querySelector(".filters").style.display = "none";
   document.getElementById("letter-filter").style.display = "none";
-  renderSoon();
+  await renderRequestedCompanies();
 });
 
 reportBugsMenu.addEventListener("click", () => {

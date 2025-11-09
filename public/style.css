@@ -57,6 +57,7 @@ body {
   color: var(--color-text-main);
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .wrapper {
@@ -145,21 +146,21 @@ body {
 
   /* alapból rejtve van a menü */
   .nav {
-    position: absolute;
+    position: fixed;
     top: 60px;
     right: 0;
     width: 220px;
+    height: calc(100vh - 60px);
     background: var(--color-white);
     border-left: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
     gap: 1rem;
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    z-index: 9;
+    z-index: 999;
   }
 
   /* amikor nyitva van */
@@ -386,4 +387,142 @@ select:focus {
   .company-section {
     flex: 1 1 100%;
   }
+}
+
+/* === Requested Companies Page === */
+.requested-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 2px solid var(--color-primary);
+  margin: 0 12px 2rem 5px;
+  padding-left: 5px;
+}
+
+.requested-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  padding: 10px 16px;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.requested-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.company-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  text-decoration: none;
+}
+
+.company-url {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+}
+
+.status-pending {
+  background-color: #facc15;
+  color: #1f2937;
+}
+.status-approved {
+  background-color: #16a34a;
+}
+.status-rejected {
+  background-color: #dc2626;
+}
+
+.comment {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.request-form {
+  background-color: var(--color-bg-main);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.request-form h2 {
+  text-align: center;
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.request-form label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.request-form input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.request-form input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.request-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.request-form button:hover {
+  background: var(--color-primary-hover);
+}
+
+.message {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.message.success {
+  color: #16a34a;
+}
+.message.error {
+  color: #dc2626;
 }
